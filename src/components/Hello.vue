@@ -1,7 +1,7 @@
 <template>
   <div id="demo">
     <button v-on:click="show = !show">
-      Переключить
+      Reset
     </button>
     <transition name="fade">
       <p v-if="show">hello</p>
@@ -15,7 +15,8 @@
 export default {
   name: 'hello',
   methods: {
-    reverseMessage: function () {
+    reverseMessage () {
+
       this.message = this.message.split('').reverse().join('')
     },
     click: function () {
@@ -37,7 +38,8 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
   .fade-enter-active, .fade-leave-active {
-    transition: opacity .5s
+    transition: opacity .5s;
+    color: red;
   }
   .fade-enter, .fade-leave-to /* .fade-leave-active до версии 2.1.8 */ {
     opacity: 0
