@@ -1,5 +1,7 @@
 <template>
-  <div id="app">
+
+  <div id="app" class="section">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.5.3/css/bulma.min.css">
     <img src="./assets/logo.png">
     <router-view></router-view>
   </div>

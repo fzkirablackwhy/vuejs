@@ -9,19 +9,17 @@
   {{ disabled }}
   <button @click="removeName()">>Remove name</button> -->
   <h1>Tasks for a day!</h1>
-  <transition name="fade">
-    <ul class="list" v-if="isVisible">
-      <li v-for="task in tasks" v-text="task.description" v-bind:class="[task.completed ? 'activeClass' : 'inactiveClass',]"></li>
-    </ul>
-  </transition>
+    <transition name="fade">
+      <ul class="list" v-if="isVisible">
+        <li v-for="task in tasks" v-text="task.description" v-bind:class="[task.completed ? 'activeClass' : 'inactiveClass',]"></li>
+      </ul>
+    </transition>
 
-  <button @click="showMore">Show more tasks</button>
-  <button @click="hideTasks">Hide incompleted tasks</button>
+    <button class="button is-primary" @click="showMore">Show more tasks</button>
+    <button class="button is-warning" @click="hideTasks">Hide incompleted tasks</button>
 
-  <button @click="isVisible = false"> Hide me!!!</button>
-  <button @click="isVisible = true"> Show! me!!!</button>
-
-
+    <button class="button is-danger" @click="isVisible = false"> Hide me!!!</button>
+    <button class="button is-info" @click="isVisible = true"> Show! me!!!</button>
 </div>
 </template>
 

@@ -1,5 +1,5 @@
 <template>
-  <div id="demo">
+  <div id="demo" class="container">
     <button v-on:click="show = !show">
       Reset
     </button>
@@ -16,7 +16,6 @@ export default {
   name: 'hello',
   methods: {
     reverseMessage () {
-
       this.message = this.message.split('').reverse().join('')
     },
     click: function () {
