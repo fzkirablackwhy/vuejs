@@ -8,7 +8,6 @@
     </transition>
     <router-link v-bind:to="'/about'">About</router-link>
   </div>
-
 </template>
 
 <script>

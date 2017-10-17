@@ -1,5 +1,5 @@
 <template>
-<div class="about">
+<section class="about section">
   <!-- <ul>
     <li v-for="name in names" v-text="name"></li>
   </ul>
@@ -8,19 +8,21 @@
   <button v-bind:disabled="{ 'disabled': false}" @click="addName">>Add name</button>
   {{ disabled }}
   <button @click="removeName()">>Remove name</button> -->
-  <h1>Tasks for a day!</h1>
-    <transition name="fade">
-      <ul class="list" v-if="isVisible">
-        <li v-for="task in tasks" v-text="task.description" v-bind:class="[task.completed ? 'activeClass' : 'inactiveClass',]"></li>
-      </ul>
-    </transition>
+  <h1 class="title">Tasks for a day!</h1>
+
 
     <button class="button is-primary" @click="showMore">Show more tasks</button>
     <button class="button is-warning" @click="hideTasks">Hide incompleted tasks</button>
 
     <button class="button is-danger" @click="isVisible = false"> Hide me!!!</button>
     <button class="button is-info" @click="isVisible = true"> Show! me!!!</button>
-</div>
+
+    <transition name="fade">
+      <ul class="list" v-if="isVisible">
+        <li class="button" v-for="task in tasks" v-text="task.description" v-bind:class="[task.completed ? 'is-primary' : 'is-danger',]"></li>
+      </ul>
+    </transition>
+</section>
 </template>
 
 <script>
@@ -55,6 +57,10 @@ export default {
 </script>
 
 <style scoped>
+
+  .title {
+    color: white;
+  }
   /* animations ---*/
   .fade-enter-active, .fade-leave-active {
     transition: opacity .5s;
@@ -67,6 +73,7 @@ export default {
   .list {
     display: flex;
     text-align: left;
+    margin-top: 20px;
     justify-content: center;
     flex-wrap: wrap;
     list-style: none;
@@ -74,8 +81,6 @@ export default {
   .list li {
     border: 1px solid #000;
     box-shadow: 0px 0px 5px 1px #054f5c;
-    background: rgb(250, 250, 250);
-    font-family:  Fantasque Sans Mono;
     align-self: center;
     padding: 5px 15px;
   }

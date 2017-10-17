@@ -4,12 +4,22 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.5.3/css/bulma.min.css">
     <img src="./assets/logo.png">
     <router-view></router-view>
+
+    <modal v-if="showModal" @close="showModal = false"></modal>
+    <button @click="showModal =  true" type="button" name="button">dasd</button>
   </div>
 </template>
 
 <script>
+import Modal from './components/Modal'
 export default {
-  name: 'app'
+  name: 'app',
+  components: { Modal },
+  data () {
+    return {
+      showModal: false
+    }
+  }
 }
 </script>
 
@@ -20,7 +30,6 @@ body {
   background: #000000;
 }
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: #242020;
