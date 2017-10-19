@@ -6,53 +6,60 @@
       <router-link v-bind:to="'/about'" class="navbar-item">About</router-link>
     </app-header>
     <router-view></router-view>
-
-    <modal v-if="showModal" @close="showModal = false"  :items="setItems()">
-
-    </modal>
-    <button @click="getData" type="button" name="button">dasd</button>
-
+    <recipes-list :recipes="recipes"></recipes-list>
+    <button @click="searchByProductsName('orange plum')" type="button" name="button">dasd</button>
+    {{ isLoading }}
     <app-footer></app-footer>
   </div>
 </template>
 
 <script>
-import axios from 'axios'
+// import axios from 'axios'
 
 import Modal from './components/Modal'
 import appHeader from './components/Main/Header'
 import appFooter from './components/Main/Footer'
+import recipesList from './components/RecipesList'
 import 'bulma/bulma.sass'
+
+import { instance, mashapAuth } from './utils/api'
+
 export default {
   name: 'app',
-  components: { Modal, appHeader, appFooter },
+  components: { Modal, appHeader, appFooter, recipesList },
   methods: {
-    setItems () {
-      let data = [
-        { description: 'Go to the store', completed: true },
-        { description: 'Go to the bed', completed: true },
-        { description: 'Go to athe work', completed: false },
-        { description: 'Go to the bar', completed: false }
-      ]
-      return data
+    searchByProductsName(query) {
+      this.isLoading = true;
+      instance.get(`/search?key=${mashapAuth}&q=${query}'`)
+        .then(res => res.data)
+        .then(data => {
+          this.isLoading = false
+          this.recipes = data.recipes
+        })
+        .catch(error => {
+          if (error.response) {
+            console.log(error.response.data)
+            console.log(error.response.status)
+            console.log(error.response.headers)
+          } else if (error.request) {
+            console.log(error.request)
+          } else {
+            console.log('Error', error.message)
+          }
+          console.log(error.config)
+        })
     },
-    getData () {
-      const config = axios.create({
-        baseURL: 'https://community-food2fork.p.mashape.com',
-        headers: {'X-Mashape-Key': '7HmvH4YXqHmshzivn3wC2cg1S2gHp1BjS9sjsnPp0xdrXJmC4v'}
-        // https://community-food2fork.p.mashape.com/get?key=b5725bcff02fc9371f33951f31c10c19&rId=37859
-      })
-      config.defaults.headers.common['X-Mashape-Authorization'] = 'b5725bcff02fc9371f33951f31c10c19 '
-      config.defaults.headers.common['X-Mashape-Key'] = '7HmvH4YXqHmshzivn3wC2cg1S2gHp1BjS9sjsnPp0xdrXJmC4v'
-      axios.get('https://community-food2fork.p.mashape.com/search?key=b5725bcff02fc9371f33951f31c10c19&q=shredded+chicken', config)
-        .then(data => console.log(data))
-        .catch(err => console.log(err))
+  },
+  data() {
+    return {
+      isLoading: false,
+      recipes: []
     }
   },
-  data () {
-    return {
-      showModal: false
-    }
+  created() {
+    // this.isLoading = true
+    // apiRequests.searchByProductsName('sugar tea')
+
   }
 }
 </script>
