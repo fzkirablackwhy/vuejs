@@ -1,24 +1,31 @@
 <template>
 
   <div id="app" class="section">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.5.3/css/bulma.min.css">
-    <img src="./assets/logo.png">
+    <app-header>
+      <router-link v-bind:to="'/home'" class="navbar-item">Home</router-link>
+      <router-link v-bind:to="'/about'" class="navbar-item">About</router-link>
+    </app-header>
     <router-view></router-view>
 
     <modal v-if="showModal" @close="showModal = false"  :items="setItems()">
 
     </modal>
-    <button @click="showModal =  true" type="button" name="button">dasd</button>
+    <button @click="getData" type="button" name="button">dasd</button>
 
-
+    <app-footer></app-footer>
   </div>
 </template>
 
 <script>
+import axios from 'axios'
+
 import Modal from './components/Modal'
+import appHeader from './components/Main/Header'
+import appFooter from './components/Main/Footer'
+import 'bulma/bulma.sass'
 export default {
   name: 'app',
-  components: { Modal },
+  components: { Modal, appHeader, appFooter },
   methods: {
     setItems () {
       let data = [
@@ -28,6 +35,18 @@ export default {
         { description: 'Go to the bar', completed: false }
       ]
       return data
+    },
+    getData () {
+      const config = axios.create({
+        baseURL: 'https://community-food2fork.p.mashape.com',
+        headers: {'X-Mashape-Key': '7HmvH4YXqHmshzivn3wC2cg1S2gHp1BjS9sjsnPp0xdrXJmC4v'}
+        // https://community-food2fork.p.mashape.com/get?key=b5725bcff02fc9371f33951f31c10c19&rId=37859
+      })
+      config.defaults.headers.common['X-Mashape-Authorization'] = 'b5725bcff02fc9371f33951f31c10c19 '
+      config.defaults.headers.common['X-Mashape-Key'] = '7HmvH4YXqHmshzivn3wC2cg1S2gHp1BjS9sjsnPp0xdrXJmC4v'
+      axios.get('https://community-food2fork.p.mashape.com/search?key=b5725bcff02fc9371f33951f31c10c19&q=shredded+chicken', config)
+        .then(data => console.log(data))
+        .catch(err => console.log(err))
     }
   },
   data () {
@@ -38,31 +57,6 @@ export default {
 }
 </script>
 
-<style>
-body {
-  margin: 0;
-  padding: 0;
-  background: #000000;
-}
-#app {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  background-color: #242020;
-  width: 80%;
-  margin-top: 60px;
-  margin: auto;
-  font-size: 20px;
-  box-shadow: 0px 3px 20px 4px rgb(21, 35, 219);
-   animation: example 5s ease-out 5s infinite;
-}
+<style lang="sass">
 
-@keyframes example {
-    0 {
-      box-shadow: 0px 5px 10px rgb(21, 35, 219);
-    }
-    20% {
-      box-shadow: 4px 10px 10px rgb(171, 0, 103);
-
-    }
-}
 </style>
