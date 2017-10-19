@@ -31,7 +31,7 @@ export default {
       let data = [
         { description: 'Go to the store', completed: true },
         { description: 'Go to the bed', completed: true },
-        { description: 'Go to the work', completed: false },
+        { description: 'Go to athe work', completed: false },
         { description: 'Go to the bar', completed: false }
       ]
       return data
