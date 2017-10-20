@@ -1,12 +1,11 @@
-import
+<!-- <template>
+  <section id="home" class="section">
 
-<template>
-  <div id="home">
-    
-    <p>Hey!</p>
-  </div>
+      <p>Hey!</p>
+  </section>
 
 </template>
+
 <script>
 export default {
   name: 'home',
@@ -16,8 +15,81 @@ export default {
 }
 </script>
 <style lang="sass" scoped>
-</style>
+</style> -->
 
+<template>
+
+  <section id="home" class="section">
+    <div class="field has-addons">
+
+      <div class="control">
+        <input class="input" type="text" placeholder="Find a repository" v-model="query" @keyup.enter="searchRecipesByIngredients(query)">
+        <p :title="query">{{ query }}</p>
+          {{ isLoading }}
+      </div>
+      <div class="control">
+        <a class="button is-info" @click="searchRecipesByIngredients(query)">
+          Search
+        </a>
+      </div>
+    </div>
+    <recipes-list :recipes="recipes"/>
+  </section>
+</template>
+
+<script>
+// import axios from 'axios'
+
+import RecipesList from './RecipesList'
+import RecipesListItem from './RecipesListItem'
+
+import { HTTP } from '../utils/http-common'
+
+export default {
+  name: 'Home',
+  components: { RecipesList, RecipesListItem },
+  methods: {
+    searchRecipesByIngredients(query) {
+      this.isLoading = true;
+      HTTP.get(`${query}'`)
+        .then(res => res.data.results)
+        .then(recipes => {
+          console.log(recipes)
+          this.isLoading = false
+          this.recipes = recipes
+        })
+        .catch(error => {
+          if (error.response) {
+            console.log(error.response.data)
+            console.log(error.response.status)
+            console.log(error.response.headers)
+          } else if (error.request) {
+            console.log(error.request)
+          } else {
+            console.log('Error', error.message)
+          }
+          console.log(error.config)
+        })
+    },
+  },
+  data() {
+    return {
+      isLoading: false,
+      recipes: [],
+      query: ''
+    }
+  },
+  created() {
+    // this.isLoading = true
+    // apiRequests.searchByProductsName('sugar tea')
+
+  }
+}
+</script>
+
+<style lang="sass" scoped>
+
+</style>
 
 
 <!-- <template>

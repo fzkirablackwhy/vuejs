@@ -10,7 +10,10 @@ module.exports = {
     browser: true,
   },
   // https://github.com/standard/standard/blob/master/docs/RULES-en.md
-  extends: 'eslint:recommended',
+  extends: [
+      'eslint:recommended',
+      'plugin:vue/base' // or 'plugin:vue/base'
+    ],
   // required to lint *.vue files
   plugins: [
     'html',
