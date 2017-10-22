@@ -5,9 +5,10 @@ import About from '@/components/About'
 
 Vue.use(Router)
 export default new Router({
+  mode: 'history',
   routes: [
     {
-      path: '/',
+      path: '/home',
       name: 'Home',
       component: Home
     },
@@ -15,6 +16,11 @@ export default new Router({
       path: '/about',
       name: 'About',
       component: About
+    },
+    {
+      path: '/recipe/:id',
+      component: About,
+      props: route => ({ recipeId: route.params.id })
     }
   ],
   linkActiveClass: 'is-active'
