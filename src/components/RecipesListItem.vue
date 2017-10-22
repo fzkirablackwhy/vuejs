@@ -1,5 +1,5 @@
 <template>
-<li class="recipe-item" @click="">
+<li class="recipe-item">
 	<div class="recipe-item__wrapper">
 		<img :src="imageSrc" :alt="recipe.title">
 		<div class='caption'>
@@ -8,7 +8,6 @@
 				<div class="caption-text__title">
 					<p>{{ recipe.title }}</p>
 				</div>
-
 				<div class="caption-text__time">
 					<span class="icon">
 						<i class="fa fa-clock-o fa-5"></i>
@@ -103,6 +102,11 @@ $item-detskop__width: 480px
 				transition: all 0.45s ease-in-out
 				a
 					color: #fff
+			&__time .icon
+				color: #addd70
+				border: 1px solid white
+				border-radius: 50%
+
 
 		.blur
 			background-color: rgba(14, 4, 4, 0.65)

@@ -2,9 +2,9 @@
 <section id="home" class="section">
 	<div class="field has-addons">
 		<div class="control">
-			<input class="input" type="text" placeholder="Find a repository" v-model="query" @keyup.enter="searchRecipesByIngredients(query)">
-			<p :title="query">{{ query }}</p>
-			{{ isLoading }}
+			<input class="input" type="text" placeholder="Find a repository" @keyup.enter="searchRecipesByIngredients(query)">
+			<!-- <p :title="query">{{ query }}</p> -->
+			<app-loader v-if="isLoading"></app-loader>
 		</div>
 		<div class="control">
 			<a class="button is-info" @click="searchRecipesByIngredients(query)">
@@ -19,21 +19,20 @@
 <script>
 import RecipesList from './RecipesList'
 import RecipesListItem from './RecipesListItem'
-
-import {
-	HTTP
-} from '../utils/http-common'
+import AppLoader from './Main/AppLoader'
+import { HTTP } from '../utils/http-common'
 
 export default {
 	name: 'Home',
 	components: {
 		RecipesList,
-		RecipesListItem
+		RecipesListItem,
+		AppLoader
 	},
 	methods: {
 		searchRecipesByIngredients(query) {
 			this.isLoading = true;
-			HTTP.get(`${query}'`)
+			HTTP.get(`search?number=21&offset=0&query=${query}'`)
 				.then(res => res.data.results)
 				.then(recipes => {
 					console.log(recipes)
