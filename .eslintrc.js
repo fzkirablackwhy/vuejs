@@ -10,7 +10,10 @@ module.exports = {
     browser: true,
   },
   // https://github.com/standard/standard/blob/master/docs/RULES-en.md
-  extends: 'eslint:recommended',
+  extends: [
+      'eslint:recommended',
+      'plugin:vue/base' // or 'plugin:vue/base'
+    ],
   // required to lint *.vue files
   plugins: [
     'html',
@@ -24,7 +27,7 @@ module.exports = {
     // allow debugger during development
     'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0,
 
-    'space-before-function-paren': ["error", "never"],
+    // 'space-before-function-paren': ["error", "never"],
     "no-console": 0
   }
 }
