@@ -27,20 +27,11 @@
 
 <script>
 export default {
-	props: {
-		recipeId: {
-			required: true,
-			type: String,
-			default: '1'
-		}
-	},
+
 	methods: {
 		showMore() {
 			const chosenValue = Math.random() < 0.5
-			this.tasks.push({
-				description: 'What?!',
-				completed: chosenValue
-			})
+			this.tasks.push({ description: 'What?!', completed: chosenValue })
 		},
 		hideTasks() {
 			this.tasks = this.tasks.filter((task) => task.completed)
@@ -48,22 +39,11 @@ export default {
 	},
 	data() {
 		return {
-			tasks: [{
-					description: 'Go to the store',
-					completed: true
-				},
-				{
-					description: 'Go to the bed',
-					completed: true
-				},
-				{
-					description: 'Go to the work',
-					completed: false
-				},
-				{
-					description: 'Go to the bar',
-					completed: false
-				}
+			tasks: [
+				{ description: 'Go to the store', completed: true },
+				{ description: 'Go to the bed', completed: true },
+				{ description: 'Go to the work', completed: false },
+				{ description: 'Go to the bar', completed: false }
 			],
 			isVisible: true
 		}

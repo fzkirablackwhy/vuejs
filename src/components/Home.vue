@@ -2,8 +2,7 @@
 <section id="home" class="section">
 	<div class="field has-addons">
 		<div class="control">
-			<input class="input" type="text" placeholder="Find a repository" @keyup.enter="searchRecipesByIngredients(query)">
-			<!-- <p :title="query">{{ query }}</p> -->
+			<input class="input" type="text" placeholder="Find a repository" v-model="query" @keyup.enter="searchRecipesByIngredients(query)">
 			<app-loader v-if="isLoading"></app-loader>
 		</div>
 		<div class="control">
@@ -32,7 +31,7 @@ export default {
 	methods: {
 		searchRecipesByIngredients(query) {
 			this.isLoading = true;
-			HTTP.get(`search?number=21&offset=0&query=${query}'`)
+			HTTP.get(`search?number=21&offset=0&query=${query}`)
 				.then(res => res.data.results)
 				.then(recipes => {
 					console.log(recipes)
@@ -92,10 +91,10 @@ export default {
 		reverseMessage() {
 			this.message = this.message.split('').reverse().join('')
 		},
-		click: function() {
+		click: function () {
 			alert('Oh god')
 		},
-		visibillity: function() {
+		visibillity: function () {
 			return Math.random() > 0.5
 		}
 	},
